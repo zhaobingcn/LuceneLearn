@@ -13,7 +13,7 @@ import java.io.StringReader;
  */
 public class IKAnalyzerTest {
     //测试数据
-    public static String testData = "张三说的确实在理";
+    public static String testData = "基于Neo4j的大规模数据检索技术";
 
     public void analyzer() throws Exception{
         Analyzer analyzer = new IKAnalyzer();
