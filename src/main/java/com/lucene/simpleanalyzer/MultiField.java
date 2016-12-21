@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Set;
 
-public class LuceneLearn{
+public class MultiField{
 
-    public void CreateIndex() throws Exception{
+    public void CreateMultiIndex() throws Exception{
         //选择语言分析器
         Analyzer analyzer = new StandardAnalyzer();
         //索引文档的存储位置
-        Directory directory = FSDirectory.open(Paths.get("./index"));
+        Directory directory = FSDirectory.open(Paths.get("./MultiFieldIndex"));
         //配置索引库信息
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
         //创建IndexWriter，用来进行索引文件的写入
@@ -39,31 +39,39 @@ public class LuceneLearn{
                 "Apache Lucene is an open source project available for free download. ",
                 "Please use the links on the right to access Lucene."
         };
+        String[] texts2 = new String[]{
+                "Although Lucene provides the ability to create your own queries through " ,
+                "its API, it also provides a rich query language through the Query" ,
+                " Parser, a lexer which interprets a string into a Lucene Query using JavaCC." ,
+                "Generally, the query parser syntax may change from release to release. This " ,
+                "page describes the syntax as of the current release. If you are using a "
+
+        };
         //建立索引文档
-        for(String text: texts){
+        for(int i=0; i<5; i++){
             Document document = new Document();
-            document.add(new TextField("info", text, Field.Store.YES));
-            document.add(new TextField("text", "qweqeqw", Field.Store.YES));
+            document.add(new TextField("info", texts[i], Field.Store.YES));
+            document.add(new TextField("text", texts2[i], Field.Store.YES));
             indexWriter.addDocument(document);
         }
         indexWriter.close();
         directory.close();
     }
 
-    public void Query() throws Exception{
+    public void MultiQuery() throws Exception{
         //选择词法分析和语法分析分析器
         Analyzer analyzer = new StandardAnalyzer();
         //打开索引文件存放位置
-        Directory directory = FSDirectory.open(Paths.get("./index"));
+        Directory directory = FSDirectory.open(Paths.get("./MultiFieldIndex"));
         //建立IndexReader
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(reader);
-//        QueryParser queryParser = new QueryParser("info", analyzer);
+        QueryParser queryParser = new QueryParser("info", analyzer);
         MultiFieldQueryParser multiFieldQueryParser = new MultiFieldQueryParser(new String[]{"info", "text"}, analyzer);
-        String[] qurey = {"lucene", "qw*"};
+        String[] qurey = {"lucene", "query"};
         String[] fields = {"info", "text"};
         BooleanClause.Occur[] flags = {BooleanClause.Occur.SHOULD,
-                        BooleanClause.Occur.MUST
+                BooleanClause.Occur.MUST
         };
         Query query = multiFieldQueryParser.parse(qurey, fields, flags, analyzer);
         TopDocs topDocs = indexSearcher.search(query, 1000);
@@ -82,8 +90,8 @@ public class LuceneLearn{
     }
 
     public static void main(String[] args) throws Exception{
-        LuceneLearn lucene = new LuceneLearn();
-//        lucene.CreateIndex();
-        lucene.Query();
+        MultiField multiField = new MultiField();
+//        multiField.CreateMultiIndex();
+        multiField.MultiQuery();
     }
 }
