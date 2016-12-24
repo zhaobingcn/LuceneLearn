@@ -45,15 +45,37 @@ public class ChineseSearch {
         /**
          * 准备写入的文档
          */
+//        String[] texts = new String[]{
+//                "Lucene是apache软件基金会4 jakarta项目组的一个子项目，是一个开放源代码的全文检索引擎工具包，",
+//                "但它不是一个完整的全文检索引擎，而是一个全文检索引擎的架构，提供了完整的查询引擎和索引引擎，",
+//                "部分文本分析引擎（英文与德文两种西方语言）。Lucene的目的是为软件开发人员提供一个简单易用的",
+//                "工具包，以方便的在目标系统中实现全文检索的功能，或者是以此为基础建立起完整的全文检索引擎",
+//                "。Lucene是一套用于全文检索和搜寻的开源程式库，由Apache软件基金会支持和提供。Lucene提供了",
+//                "一个简单却强大的应用程式接口，能够做全文索引和搜寻。在Java开发环境里Lucene是一个成熟的",
+//                "免费开源工具。就其本身而言，Lucene是当前以及最近几年最受欢迎的免费Java信息检",
+//                "索程序库。人们经常提到信息检索程序库，虽然与搜索引擎有关，但不应该将信息检索程序库与搜索引擎相混淆"
+//        };
         String[] texts = new String[]{
-                "Lucene是apache软件基金会4 jakarta项目组的一个子项目，是一个开放源代码的全文检索引擎工具包，",
-                "但它不是一个完整的全文检索引擎，而是一个全文检索引擎的架构，提供了完整的查询引擎和索引引擎，",
-                "部分文本分析引擎（英文与德文两种西方语言）。Lucene的目的是为软件开发人员提供一个简单易用的",
-                "工具包，以方便的在目标系统中实现全文检索的功能，或者是以此为基础建立起完整的全文检索引擎",
-                "。Lucene是一套用于全文检索和搜寻的开源程式库，由Apache软件基金会支持和提供。Lucene提供了",
-                "一个简单却强大的应用程式接口，能够做全文索引和搜寻。在Java开发环境里Lucene是一个成熟的",
-                "免费开源工具。就其本身而言，Lucene是当前以及最近几年最受欢迎的免费Java信息检",
-                "索程序库。人们经常提到信息检索程序库，虽然与搜索引擎有关，但不应该将信息检索程序库与搜索引擎相混淆"
+                "李毅",
+                "唐毅",
+                "赵毅",
+                "林毅",
+                "唐毅",
+                "肖毅",
+                "贾毅",
+                "刘毅",
+
+                "詹毅",
+                "詹阳烈",
+                "王毅",
+                "韩毅",
+                "段毅",
+                "王毅",
+                "李毅",
+                "郑毅",
+
+                "庞毅",
+                "曹毅"
         };
         /**
          * 建立索引
@@ -82,7 +104,7 @@ public class ChineseSearch {
         IndexReader reader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(reader);
         QueryParser queryParser = new QueryParser("info", analyzer);
-        Query query = queryParser.parse("一个子项目");
+        Query query = queryParser.parse("詹毅");
         TopDocs topDocs = indexSearcher.search(query, 1000);
         System.out.println("总共匹配多少个：" + topDocs.totalHits);
         ScoreDoc[] hits = topDocs.scoreDocs;

@@ -13,7 +13,7 @@ import java.io.StringReader;
  */
 public class IKAnalyzerTest {
     //测试数据
-    public static String testData = "从2006年12月推出1.0版开始，IKAnalyzer已经推出 了3个大版本。最初，它是以开源项目Lucene为应用主体的，结合词典分词和文法分析算法的中文分词组件。新版本的IKAnalyzer3.0则发展为 面向Java的公用分词组件，独立于Lucene项目，同时提供了对Lucene的默认优化实现。";
+    public static String testData = "图数据库";
 
     public void analyzer() throws Exception{
         Analyzer analyzer = new IKAnalyzer();
